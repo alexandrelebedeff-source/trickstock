@@ -1,0 +1,419 @@
+/* Import the pixel font */
+:root {
+    --font-pixel: 'Press Start 2P', cursive;
+    --color-bg: #120c18; /* Dark Purple */
+    --color-primary: #f9d806; /* Neon Yellow */
+    --color-secondary: #e94560; /* Neon Pink */
+    --color-accent: #0f3460; /* Deep Blue */
+    --color-text: #e0e0e0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-pixel);
+    background-color: #000; /* Fallback color */
+    color: var(--color-text);
+    margin: 0;
+    padding: 20px;
+    display: block;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top instead of center */
+    min-height: 100vh; /* Full viewport height */
+	background-image: url('bg.jpg'); /* Your image file */
+    background-size: cover;          /* Cover the entire background */
+    background-position: center;     /* Center the image */
+    background-repeat: no-repeat;    /* Don't repeat the image */
+    background-attachment: fixed;    /* Keep image fixed when scrolling */
+}
+
+#app-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+h1 {
+    color: var(--color-primary);
+    text-shadow: 3px 3px 0px var(--color-secondary);
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+h2, h3 {
+    color: var(--color-secondary);
+    margin-bottom: 10px;
+}
+
+/* --- Controls & Buttons --- */
+button, .btn-secondary {
+    font-family: var(--font-pixel);
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    background-color: var(--color-accent);
+    border: 2px solid var(--color-primary);
+    padding: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 0 var(--color-bg), 5px 5px 0 var(--color-primary);
+    transition: all 0.1s ease;
+    text-align: center;
+}
+
+button:active, .btn-secondary:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--color-bg), 0 0 0 var(--color-primary);
+}
+
+.btn-primary {
+    background-color: var(--color-secondary);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    box-shadow: 3px 3px 0 var(--color-bg), 5px 5px 0 var(--color-secondary);
+}
+.btn-danger {
+    background-color: #7a0c1f;
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* File input styling */
+input[type="file"] {
+    display: none;
+}
+.file-label {
+    display: block;
+    padding: 10px;
+}
+
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #000;
+    padding: 10px;
+    border: 2px solid var(--color-accent);
+}
+.filter-btn.active {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+/* --- Stock List --- */
+#stock-list {
+    display: grid;
+    /* This makes it responsive for mobile */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.stock-item {
+    background-color: #000;
+    border: 3px solid var(--color-accent);
+    padding: 10px;
+    box-shadow: 4px 4px 0 var(--color-accent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+.stock-item:hover {
+    transform: scale(1.02);
+    border-color: var(--color-primary);
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    background-color: #333;
+    border: 2px solid var(--color-text);
+    margin-bottom: 10px;
+    /* This gives the pixelated retro game look */
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.item-name {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 5px;
+}
+.item-category {
+    font-size: 0.8rem;
+    color: var(--color-secondary);
+    margin-bottom: 10px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.quantity-controls button {
+    font-size: 1.2rem;
+    padding: 0px 8px;
+    line-height: 1;
+    box-shadow: none;
+}
+.item-quantity {
+    font-size: 1.4rem;
+    color: var(--color-primary);
+    min-width: 40px;
+    text-align: center;
+}
+
+/* --- Modal --- */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal.hidden {
+    display: none;
+}
+.modal-content {
+    background: var(--color-bg);
+    padding: 20px;
+    border: 4px solid var(--color-primary);
+    box-shadow: 0 0 20px var(--color-primary);
+    width: 90%;
+    max-width: 400px;
+}
+#item-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#item-form label {
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+}
+#item-form input, #item-form select {
+    font-family: var(--font-pixel);
+    background: #111;
+    border: 2px solid var(--color-accent);
+    color: var(--color-text);
+    padding: 8px;
+    font-size: 1rem;
+}
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.modal-buttons #delete-item-btn {
+    margin-left: auto; /* Pushes delete button to the right */
+}
+
+/* --- Add Category Controls --- */
+#add-category-control {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#add-category-control input {
+    flex-grow: 1; /* Takes up remaining space */
+    font-family: var(--font-pixel);
+    background: #111;
+    border: 2px solid var(--color-accent);
+    color: var(--color-text);
+    padding: 8px;
+    font-size: 1rem;
+}
+
+#add-category-control button {
+    font-size: 1.5rem;
+    padding: 0 15px;
+    box-shadow: none;
+    flex-shrink: 0; /* Prevents shrinking */
+}
+
+/* RE-STYLE .filter-btn */
+.filter-btn {
+    position: relative;
+    /* This padding *is* the space for the button */
+    padding-right: 30px; 
+}
+
+/* NEW: This rule wraps the text and prevents it from overlapping */
+.category-text {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." if still too long */
+    white-space: nowrap;
+    vertical-align: middle; /* Aligns text nicely */
+}
+
+/* RE-STYLE .delete-category-btn */
+.delete-category-btn {
+    position: absolute;
+    top: 50%;
+    right: 5px; /* Moved in from the edge */
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+    padding: 0 0;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+/* (These next two rules are likely unchanged, but check them) */
+.filter-btn:hover .delete-category-btn {
+    opacity: 1;
+}
+
+/* This rule is correct, as "All" has no "x" */
+.filter-btn[data-category="all"] {
+    padding-right: 10px;
+}
+.filter-btn[data-category="all"] .delete-category-btn {
+    display: none;
+}
+
+/* --- Print Commentary Box --- */
+.comment-control {
+    margin-bottom: 20px;
+}
+.comment-control label {
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+    display: block;
+    margin-bottom: 5px;
+}
+#print-commentary {
+    width: 100%;
+    font-family: var(--font-pixel);
+    background: #111;
+    border: 2px solid var(--color-accent);
+    color: var(--color-text);
+    padding: 8px;
+    font-size: 1rem;
+    resize: vertical; /* Allow user to resize height */
+}
+  #print-area {
+        display: block;
+        font-size: 9pt;
+        background-color: #0009;
+        line-height: 1.2;
+        padding: 0 2mm; 
+    }
+
+
+/* --- Print Styling (COMPACT 80mm) --- */
+@media print {
+    /* 1. Hide the main app */
+    #app-container, #item-modal {
+        display: none;
+    }
+
+    /* 2. Define the page size with smaller margins */
+    @page {
+        size: 80mm;
+        margin: 0;
+    }
+
+    /* 3. Style ONLY the print area */
+    #print-area {
+        display: block;
+        font-family: monospace;
+        font-size: 9pt;
+        color: #000;
+        line-height: 1.2;
+        padding: 0 2mm; 
+    }
+    
+    /* NEW: Style for the date */
+    #print-area .print-date {
+        font-size: 9pt;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+	
+	#print-area .print-comment {
+        font-size: 9pt;
+        font-style: bold;
+        text-align: left;
+        margin-bottom: 5px;
+        border-top: 1px dashed #000;
+        border-bottom: 1px dashed #000;
+        padding: 3px 0;
+        /* This preserves line breaks from the textarea */
+        white-space: pre-wrap; 
+    }
+    
+    #print-area table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: avoid; /* Tries to keep table on one page */
+    }
+    
+    #print-area th, #print-area td {
+        border-bottom: 1px dashed #000;
+        padding: 2px 0; /* Reduced padding */
+        text-align: left;
+    }
+    #print-area th:last-child, #print-area td:last-child {
+        text-align: right;
+    }
+    
+    #print-area tfoot {
+        font-weight: bold;
+    }
+    #print-area tfoot td {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    #print-area h3 {
+        font-size: 10pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 5px;
+        margin-bottom: 3px;
+        color: #000;
+        border-top: 1px dashed #000;
+        padding-top: 3px;
+        page-break-inside: avoid; /* Keeps header with its table */
+        page-break-after: avoid;  /* Prevents a break right after a header */
+    }
+    
+    #print-area hr {
+        border: none;
+        border-top: 1px dashed #000;
+        margin: 3px 0;
+    }
+
+    #print-area .grand-total-table {
+        margin-top: 8px;
+        border-top: 2px solid #000;
+        font-size: 11pt;
+    }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tricks Estoque</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <div id="app-container">
+        <h1>Tricks Estoque</h1>
+
+        <div class="controls-grid">
+            <button id="add-new-btn" class="btn-primary">Add Item</button>
+            <button id="print-btn">Imprimir</button>
+            
+            <button id="export-csv-btn">Exportar CSV</button>
+            <button id="template-csv-btn">CSV Padrão</button>
+            
+            <label for="import-csv" class="btn-secondary file-label">Importar CSV</label>
+            <input type="file" id="import-csv" accept=".csv">
+        </div>
+		
+		<div class="comment-control">
+            <label for="print-commentary">Commentario:</label>
+            <textarea id="print-commentary" rows="3" placeholder="• falta palito de dente
+• falta agua s/gas"></textarea>
+        </div>
+
+        <div id="add-category-control">
+            <input type="text" id="new-category-name" placeholder="Nova Categoria">
+            <button id="add-category-btn">+</button>
+        </div>
+
+        <div class="filter-controls">
+            <h3>Categoria:</h3>
+            <button class="filter-btn active" data-category="all">Todos</button>
+            </div>
+
+        <div id="stock-list">
+            </div>
+    </div>
+
+    <div id="item-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">Novo Item</h2>
+            <form id="item-form">
+                <input type="hidden" id="item-id">
+                <label for="item-name">Nome:</label>
+                <input type="text" id="item-name" required>
+                
+                <label for="item-category">Categoria:</label>
+                <select id="item-category">
+                </select>
+                
+                <label for="item-quantity">Quantidade:</label>
+                <input type="number" id="item-quantity" value="0" min="0">
+                
+                <label for="item-image">Image URL:</label>
+                <input type="text" id="item-image" placeholder="http://.../image.png">
+                
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-primary">Salvar</button>
+                    <button type="button" id="modal-cancel-btn">Cancelar</button>
+                    <button type="button" id="delete-item-btn" class="btn-danger hidden">Deletar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="print-area"></div>
+
+</body>
+</html>
