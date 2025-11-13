@@ -261,7 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
         categoriesToPrint.forEach(category => {
             const itemsInCategory = stock.filter(item => item.category === category);
             if (itemsInCategory.length === 0) return;
-
+			
+			html += `<div class="print-category-block">`; // <-- ADICIONE ESTA LINHA
             html += `<h3>${category}</h3>`;
             html += '<table><tbody>'; 
             let categorySubtotal = 0;
@@ -272,7 +273,9 @@ document.addEventListener('DOMContentLoaded', () => {
             html += `</tbody><tfoot>`;
             html += `<tr><td>Subtotal</td><td>${categorySubtotal}</td></tr>`;
             html += `</tfoot></table>`;
-            html += `<hr>`; 
+            html += `<hr>`;
+			html += `</div>`;
+			
             grandTotal += categorySubtotal;
         });
 
@@ -444,4 +447,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderStock();
     renderCategoryFilters();
     renderModalDropdown();
+
 });
