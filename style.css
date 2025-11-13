@@ -373,7 +373,7 @@ max-width:60%
     #print-area table {
         width: 100%;
         border-collapse: collapse;
-        page-break-inside: avoid; /* Tries to keep table on one page */
+        
     }
     
     #print-area th, #print-area td {
@@ -402,8 +402,7 @@ max-width:60%
         color: #000;
         border-top: 1px dashed #000;
         padding-top: 3px;
-        page-break-inside: avoid; /* Keeps header with its table */
-        page-break-after: avoid;  /* Prevents a break right after a header */
+        
     }
     
     #print-area hr {
@@ -417,4 +416,9 @@ max-width:60%
         border-top: 2px solid #000;
         font-size: 11pt;
     }
+
+	#print-area .print-category-block {
+        page-break-inside: avoid; 
+    }
+
 }
