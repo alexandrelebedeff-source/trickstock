@@ -99,6 +99,27 @@ input[type="file"] {
     padding: 10px;
 }
 
+/* NEW: Styles for the new print selector/button */
+.print-control-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.print-control-group select {
+    flex-grow: 1;
+    font-family: var(--font-pixel);
+    background: #111;
+    border: 2px solid var(--color-accent);
+    color: var(--color-text);
+    padding: 8px;
+    font-size: 1rem;
+}
+.print-control-group button {
+    flex-shrink: 0;
+}
+
+
 .filter-controls {
     display: flex;
     flex-wrap: wrap;
@@ -137,6 +158,16 @@ input[type="file"] {
 .stock-item:hover {
     transform: scale(1.02);
     border-color: var(--color-primary);
+}
+
+/* NEW: Style for items below min quantity */
+.stock-item.low-stock {
+    border-color: var(--color-secondary); /* Neon Pink border */
+    box-shadow: 4px 4px 0 var(--color-secondary);
+}
+.stock-item.low-stock .item-quantity {
+    color: var(--color-secondary); /* Neon Pink quantity text */
+    font-weight: bold;
 }
 
 .item-image {
@@ -246,15 +277,20 @@ input[type="file"] {
     color: var(--color-text);
     padding: 8px;
     font-size: 1rem;
-max-width:60%
+    max-width: 35%; /* Reduced max-width to make room for new button */
 }
 
 #add-category-control button {
-    font-size: 1.5rem;
-    padding: 0 15px;
+    font-size: 1.0rem; /* Adjusted font size */
+    padding: 8px 10px; /* Adjusted padding */
     box-shadow: none;
     flex-shrink: 0; /* Prevents shrinking */
 }
+#add-category-control #add-category-btn {
+     font-size: 1.5rem;
+     padding: 0 15px;
+}
+
 
 /* RE-STYLE .filter-btn */
 .filter-btn {
